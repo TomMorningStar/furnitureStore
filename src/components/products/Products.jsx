@@ -17,8 +17,6 @@ const Products = () => {
     dispatch(getSofas());
   }, []);
 
-  //   console.log(sofas, armchairs);
-
   return (
     <div className="productsWrapper d-flex justify-between">
       {armchairs.map((product) => {

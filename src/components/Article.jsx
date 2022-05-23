@@ -17,11 +17,11 @@ const Article = () => {
       </div>
 
       <p>
-        I like Furniking.com and as compared to other company it's polices and
-        customers support is very good easy to reach., also many time they
-        unable to delivered. The ultricies are pregnant while the quis is
-        suspended. Risus commodo viverra maecenas accumsan lacus vel facilisist
-        amet.
+        I like http://localhost:3000/ and as compared to other company it's
+        polices and customers support is very good easy to reach., also many
+        time they unable to delivered. The ultricies are pregnant while the quis
+        is suspended. Risus commodo viverra maecenas accumsan lacus vel
+        facilisist amet.
       </p>
 
       <h4>Angelina Joly</h4>
