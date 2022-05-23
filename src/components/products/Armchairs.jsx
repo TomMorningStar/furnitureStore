@@ -3,13 +3,11 @@ import BasketIcon from "./svgIcons/BasketIcon";
 import LikeIcon from "./svgIcons/LikeIcon";
 
 const Armchairs = ({ product }) => {
-  console.log(product);
-
   return (
     <div className="product">
       <div
-        style={{ backgroundImage: `url(${product.img})` }}
         className="productImg"
+        style={{ backgroundImage: `url(${product.img})` }}
       >
         <LikeIcon />
         <BasketIcon />

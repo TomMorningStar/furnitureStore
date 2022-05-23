@@ -2,10 +2,12 @@ import React from "react";
 import logo from "../images/logo.png";
 import basket from "../images/basket.png";
 import avatar from "../images/avatar.png";
+import Basket from "./basket/Basket";
 
 const Header = () => {
   return (
     <header>
+      <Basket />
       <div className="header-nav d-flex justify-between">
         <div>Welcome to our online shop</div>
         <button>Login or Sing up</button>
@@ -21,9 +23,6 @@ const Header = () => {
           </div>
         </div>
         <div className="d-flex">
-          <button>
-            <img src={basket} alt="" />
-          </button>
           <button className="ml-20">
             <img src={avatar} alt="" />
           </button>

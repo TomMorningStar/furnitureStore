@@ -26,13 +26,20 @@ h1 {
 header {
   button {
     cursor: pointer;
-    color: #fff;
+    color: #283d4b;
+    font-weight: 600;
     font-size: 16px;
   }
 
   .header-nav {
-    color: #fff;
-    background-color: #7ac751;
+    color: #283d4b;
+    font-weight: 600;
+    background: rgb(34, 193, 195);
+    background: linear-gradient(
+      0deg,
+      rgba(34, 193, 195, 1) 0%,
+      rgba(29, 235, 63, 1) 81%
+    );
     padding: 15px 135px;
   }
 
@@ -139,17 +146,17 @@ section {
 }
 
 .product {
-  width: 270px;
-  margin-bottom: 45px;
+  width: 265px;
+  padding: 0 10px 20px 10px;
+  cursor: pointer;
+  margin-bottom: 20px;
 
   .productImg {
-    width: 270px;
     height: 287px;
     background-repeat: no-repeat;
-    background-size: 100%;
+    background-size: 220px;
     transition: 1s;
     background-position: center;
-    cursor: pointer;
 
     .basketLogo,
     .likeProduct {
@@ -159,14 +166,8 @@ section {
       line-height: 48px;
       border-radius: 39px;
       border: 3px solid rgb(210, 210, 210);
-      cursor: pointer;
       opacity: 0;
       transition: 0.2s;
-    }
-
-    &:hover {
-      background-size: 110%;
-      transition: 1s;
     }
   }
 
@@ -185,7 +186,7 @@ section {
   }
 
   .productName {
-    font-size: 20px;
+    font-size: 19px;
     color: #555555;
   }
 
@@ -225,6 +226,13 @@ section {
       background-color: #7ac751;
       opacity: 1;
     }
+  }
+  &:hover {
+    box-shadow: 0px 0px 19px 0px rgba(34, 60, 80, 0.23);
+  }
+  &:hover .productImg {
+    background-size: 120%;
+    transition: 0.8s;
   }
 }
 
