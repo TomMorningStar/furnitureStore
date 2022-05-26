@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Basket.module.scss";
-import basket from "../../images/shopping-bag.png";
-import like from "../../images/like.png";
+import basket from "../../../images/shopping-bag.png";
+import like from "../../../images/like.png";
 
 const BasketIcons = ({ active, setActive }) => {
   return (
