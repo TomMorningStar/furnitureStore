@@ -10,8 +10,8 @@ const Basket = () => {
     <div
       style={
         active
-          ? { right: "-805px", transition: "0.4s" }
-          : { right: "0", transition: "0.4s" }
+          ? { right: "0", transition: "0.4s" }
+          : { right: "-805px", transition: "0.4s" }
       }
       className={`${styles.basketWrapper} d-flex`}
     >

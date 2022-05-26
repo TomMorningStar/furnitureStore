@@ -23,40 +23,6 @@ h1 {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-header {
-  button {
-    cursor: pointer;
-    color: #283d4b;
-    font-weight: 600;
-    font-size: 16px;
-  }
-
-  .header-nav {
-    color: #283d4b;
-    font-weight: 600;
-    background: rgb(34, 193, 195);
-    background: linear-gradient(
-      0deg,
-      rgba(34, 193, 195, 1) 0%,
-      rgba(29, 235, 63, 1) 81%
-    );
-    padding: 15px 135px;
-  }
-
-  .furniking {
-    font-size: 24px;
-    color: #555;
-
-    strong {
-      font-weight: 600;
-    }
-  }
-
-  .header-bottom {
-    padding: 20px 135px;
-  }
-}
-
 aside {
   height: 511px;
   padding: 0px 135px;

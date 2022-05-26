@@ -11,7 +11,7 @@ const Article = () => {
         <img
           width={88}
           height={88}
-          src="https://static.ngs.ru/news/99/preview/4f722eb86f83e791bc7970754eb1ffea030345a3_599_399_c.jpg"
+          src="https://cdn-icons-png.flaticon.com/512/1386/1386482.png"
           alt=""
         />
       </div>
