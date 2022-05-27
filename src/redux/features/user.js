@@ -6,10 +6,9 @@ const inintialState = {
 const user = (state = inintialState, action) => {
   switch (action.type) {
     case "Exit":
-      localStorage.removeItem("token");
       return {
         ...state,
-        token: null,
+        token: localStorage.removeItem("token"),
         login: "",
       };
     case "/user/register/pending":
@@ -22,7 +21,7 @@ const user = (state = inintialState, action) => {
       return {
         ...state,
         loadUser: false,
-        login: action.payload.name,
+        login: action.payload,
       };
     case "/user/register/rejected":
       return {
@@ -40,8 +39,8 @@ const user = (state = inintialState, action) => {
       return {
         ...state,
         loadUser: false,
-        login: action.payload.login,
         token: action.payload.token,
+        login: action.payload.login,
       };
     case "/user/login/rejected":
       return {
@@ -59,13 +58,12 @@ const user = (state = inintialState, action) => {
       return {
         ...state,
         loadUser: false,
-        login: action.payload.login,
+        login: action.payload,
       };
     case "get/user/rejected":
       return {
         ...state,
         loadUser: false,
-        message: action.payload,
         error: action.error,
       };
     default:
@@ -88,10 +86,11 @@ export const registerUser = (login, password) => {
         },
         body: JSON.stringify({ login, password }),
       });
+
       const user = await res.json();
 
       if (user.user) {
-        dispatch({ type: "/user/register/fullfilled", payload: user.user });
+        dispatch({ type: "/user/register/fulfilled", payload: user.user });
       } else {
         dispatch({
           type: "/user/register/rejected",
@@ -114,13 +113,11 @@ export const loginUser = (login, password) => {
         },
         body: JSON.stringify({ login, password }),
       });
+
       const token = await res.json();
 
-      console.log(token);
-
       if (token) {
-        console.log(token);
-        dispatch({ type: "/user/login/fulfilled", payload: { login, token } });
+        dispatch({ type: "/user/login/fulfilled", payload: { token, login } });
         localStorage.setItem("token", token);
       }
     } catch (err) {
@@ -143,12 +140,10 @@ export const getUser = () => {
         },
       });
       const user = await res.json();
-      dispatch({
-        type: "get/user/fulfilled",
-        payload: {
-          login: user.login,
-        },
-      });
+
+      if (user) {
+        dispatch({ type: "get/user/fulfilled", payload: user.login });
+      }
     } catch (error) {
       dispatch({ type: "get/user/rejected", error });
     }

@@ -12,24 +12,24 @@ const Header = () => {
     login: state.user.login,
     token: state.user.token,
   }));
+
   const dispatch = useDispatch();
 
   const handleExit = () => {
-    console.log(1);
     dispatch({ type: "Exit" });
   };
 
   useEffect(() => {
-    getUser();
-  }, [login]);
+    dispatch(getUser());
+  }, []);
 
   return (
     <header>
-      <Basket />
+      <Basket token={token} />
 
       <div className={`${styles.headerNav} d-flex justify-between`}>
         <div>Welcome to our online shop</div>
-        <Link to="/login">Login or Sing up</Link>
+        {!token && <Link to="/login">Login or Sing up</Link>}
       </div>
 
       <div className={`${styles.headerBottom} d-flex justify-between`}>
@@ -49,9 +49,14 @@ const Header = () => {
             <img src={avatar} alt="" />
           </button>
 
-          <button onClick={handleExit} className={`${styles.exit} clear ml-10`}>
-            Exit
-          </button>
+          {token && (
+            <button
+              onClick={handleExit}
+              className={`${styles.exit} clear ml-10`}
+            >
+              Exit
+            </button>
+          )}
         </div>
       </div>
     </header>
