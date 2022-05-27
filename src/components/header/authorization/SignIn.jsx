@@ -1,28 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { loginUser } from "../../../redux/features/user";
+import { getUser, loginUser } from "../../../redux/features/user";
 import styles from "./Authorization.module.scss";
 
 const SignIn = () => {
   const dispatch = useDispatch();
 
-  const token = useSelector((state) => state.user.token);
+  const user = useSelector((state) => state.user);
 
   const [login, setLogin] = React.useState("");
   const [password, setPassword] = React.useState("");
 
-  const handleGetLogin = (e) => {
-    setLogin(e.target.value);
-  };
-  const handleGetPassword = (e) => {
-    setPassword(e.target.value);
-  };
+  const [validation, setValifation] = React.useState("");
 
   const handleLogin = () => {
-    if ((login, password)) {
-      dispatch(loginUser(login, password));
+    dispatch(loginUser(login, password));
+
+    if (!user.token) {
+      setValifation(() => "Неправильный логин или пароль");
+    } else {
+      setValifation(() => "");
     }
+
+    setLogin("");
+    setPassword("");
   };
 
   return (
@@ -37,7 +39,7 @@ const SignIn = () => {
             <div className={styles.inputBlock}>
               <input
                 value={login}
-                onChange={handleGetLogin}
+                onChange={(e) => setLogin(e.target.value)}
                 autoFocus
                 placeholder="Login"
                 type="text"
@@ -45,34 +47,42 @@ const SignIn = () => {
             </div>
             <div className={styles.inputBlock}>
               <input
-                onChange={handleGetPassword}
+                onChange={(e) => setPassword(e.target.value)}
                 value={password}
                 placeholder="Password"
                 type="password"
               />
 
-              <div className={styles.validation}>
-                Неправильный логин или пароль
-              </div>
+              <div className={`${styles.validation} `}>{validation}</div>
             </div>
           </div>
 
           <div className={styles.signInButton}>
-            {login && (
-              <Link to="/" onClick={handleLogin}>
-                Sign In
-              </Link>
-            )}
+            {login &&
+              password &&
+              (!!user.token ? (
+                <Link to="/" onClick={() => handleLogin()}>
+                  Sign In
+                </Link>
+              ) : (
+                <Link to="#" onClick={() => handleLogin()}>
+                  Sign In
+                </Link>
+              ))}
           </div>
 
           <div className={styles.goToHome}>
             <Link to="/">go to home</Link>
           </div>
 
-          <div className={styles.formSubTitle}>Don't have an account?</div>
-          <div className={styles.formNav}>
-            <Link to="/signup">SIGN UP NOW</Link>
-          </div>
+          {!user.token && (
+            <>
+              <div className={styles.formSubTitle}>Don't have an account?</div>
+              <div className={styles.formNav}>
+                <Link to="/signup">SIGN UP NOW</Link>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>

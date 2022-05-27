@@ -21,37 +21,58 @@ const SignUp = () => {
   };
 
   const testLogin = (login) => {
-    if (login === "") {
-      return false, "The field cannot be empty";
+    if (/^[a-zA-Z1-9]+$/.test(login) === false) {
+      return {
+        boolean: false,
+        text: "The login must contain only latin letters",
+      };
     }
-    if (/^[a-zA-Z1-9]+$/.test(login) === false)
-      return false, "The login must contain only latin letters";
     if (login.length < 4 || login.length > 20) {
-      return false, "Login must be between 4 and 20 characters";
+      return {
+        boolean: false,
+        text: "Login must be between 4 and 20 characters",
+      };
     }
     if (parseInt(login.substr(0, 1))) {
-      return false, "Login must start with a letter";
+      return {
+        boolean: false,
+        text: "Login must start with a letter",
+      };
     }
-    return true;
+    return { boolean: true };
   };
 
   const testPassword = (password) => {
     if (password.length < 4 || password.length > 20) {
-      return false, "Password must be between 4 and 20 characters";
+      return {
+        boolean: false,
+        text: "Password must be between 4 and 20 characters",
+      };
+    }
+    if (/^[a-zA-Z1-9]+$/.test(password) === false) {
+      return {
+        boolean: false,
+        text: "The login must contain only latin letters",
+      };
     }
 
-    return true;
+    return { boolean: true };
   };
 
   const handleRegister = () => {
-    if (testLogin(login) === true || testPassword(password) === true) {
-      dispatch(registerUser(login, password));
+    console.log(testLogin(login).boolean);
+
+    if (testLogin(login).boolean) {
+      if (testPassword(password).boolean) {
+        dispatch(registerUser(login, password));
+      }
     }
+
     setLogin("");
     setPassword("");
     return (
-      setValidationLogin(testLogin(login)),
-      setValidationPassword(testPassword(password))
+      setValidationLogin(testLogin(login).text),
+      setValidationPassword(testPassword(password).text)
     );
   };
 
@@ -86,7 +107,9 @@ const SignUp = () => {
           </div>
 
           <div className={styles.signInButton}>
-            <button onClick={handleRegister}>Sign Up</button>
+            {login && password && (
+              <button onClick={handleRegister}>Sign Up</button>
+            )}
           </div>
 
           <div className={styles.goToHome}>

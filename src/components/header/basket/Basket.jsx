@@ -3,7 +3,7 @@ import styles from "./Basket.module.scss";
 import BasketIcons from "./BasketIcons";
 import BasketContant from "./BasketContant";
 
-const Basket = () => {
+const Basket = ({ token }) => {
   const [active, setActive] = React.useState(false);
 
   return (
@@ -15,7 +15,7 @@ const Basket = () => {
       }
       className={`${styles.basketWrapper} d-flex`}
     >
-      <BasketIcons active={active} setActive={setActive} />
+      <BasketIcons token={token} active={active} setActive={setActive} />
       <BasketContant />
     </div>
   );
