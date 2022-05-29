@@ -1,13 +1,11 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { getUser, loginUser } from "../../../redux/features/user";
+import { loginUser } from "../../../redux/features/user";
 import styles from "./Authorization.module.scss";
 
-const SignIn = () => {
+const SignIn = ({ token }) => {
   const dispatch = useDispatch();
-
-  const user = useSelector((state) => state.user);
 
   const [login, setLogin] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -17,10 +15,11 @@ const SignIn = () => {
   const handleLogin = () => {
     dispatch(loginUser(login, password));
 
-    if (!user.token) {
-      setValifation(() => "Неправильный логин или пароль");
-    } else {
-      setValifation(() => "");
+    if (!token) {
+      setValifation("Неправильный логин или пароль");
+      if (token) {
+        setValifation("");
+      }
     }
 
     setLogin("");
@@ -60,7 +59,7 @@ const SignIn = () => {
           <div className={styles.signInButton}>
             {login &&
               password &&
-              (!!user.token ? (
+              (!!token ? (
                 <Link to="/" onClick={() => handleLogin()}>
                   Sign In
                 </Link>
@@ -75,7 +74,7 @@ const SignIn = () => {
             <Link to="/">go to home</Link>
           </div>
 
-          {!user.token && (
+          {!token && (
             <>
               <div className={styles.formSubTitle}>Don't have an account?</div>
               <div className={styles.formNav}>

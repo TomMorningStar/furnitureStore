@@ -60,8 +60,6 @@ const SignUp = () => {
   };
 
   const handleRegister = () => {
-    console.log(testLogin(login).boolean);
-
     if (testLogin(login).boolean) {
       if (testPassword(password).boolean) {
         dispatch(registerUser(login, password));

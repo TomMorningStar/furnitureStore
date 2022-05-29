@@ -2,15 +2,15 @@ import React from "react";
 import BasketIcon from "./svgIcons/BasketIcon";
 import LikeIcon from "./svgIcons/LikeIcon";
 
-const Armchairs = ({ product }) => {
+const Armchairs = ({ token, product }) => {
   return (
     <div className="product">
       <div
         className="productImg"
         style={{ backgroundImage: `url(${product.img})` }}
       >
-        <LikeIcon />
-        <BasketIcon />
+        <LikeIcon token={token} />
+        <BasketIcon token={token} product={product} />
       </div>
 
       <div className="type mt-10">{product.type.name}</div>

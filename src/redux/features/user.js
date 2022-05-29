@@ -39,8 +39,9 @@ const user = (state = inintialState, action) => {
       return {
         ...state,
         loadUser: false,
-        token: action.payload.token,
+        token: action.payload.token.token,
         login: action.payload.login,
+        basket: [action.payload.token.basket.basket],
       };
     case "/user/login/rejected":
       return {
@@ -118,7 +119,7 @@ export const loginUser = (login, password) => {
 
       if (token) {
         dispatch({ type: "/user/login/fulfilled", payload: { token, login } });
-        localStorage.setItem("token", token);
+        localStorage.setItem("token", token.token);
       }
     } catch (err) {
       dispatch({ type: "/user/login/rejected", error: err.toString() });

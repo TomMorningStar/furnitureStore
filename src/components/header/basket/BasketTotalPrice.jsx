@@ -8,7 +8,7 @@ const BasketTotalPrice = () => {
         <b>Total</b>
       </div>
       <div className="ml-40">
-        <b>19531 ₽</b>
+        <b>0 ₽</b>
       </div>
     </div>
   );

@@ -16,7 +16,7 @@ const App = () => {
       <Routes>
         <Route path="*" element={<NoMatch />} />
         {!token ? (
-          <Route path="/login" element={<SignIn />} />
+          <Route path="/login" element={<SignIn token={token} />} />
         ) : (
           <Route path="/login" element={<Navigate to="/" replace />} />
         )}

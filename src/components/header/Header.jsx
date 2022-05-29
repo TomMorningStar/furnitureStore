@@ -1,16 +1,14 @@
-import React, { useEffect } from "react";
+import React from "react";
 import logo from "../../images/logo.png";
 import avatar from "../../images/avatar.png";
 import Basket from "./basket/Basket";
 import styles from "./Header.module.scss";
 import { Link } from "react-router-dom";
-import { getUser } from "../../redux/features/user";
 import { useDispatch, useSelector } from "react-redux";
 
 const Header = () => {
-  const { login, token } = useSelector((state) => ({
-    login: state.user.login,
-    token: state.user.token,
+  const { user } = useSelector((state) => ({
+    user: state.user,
   }));
 
   const dispatch = useDispatch();
@@ -19,17 +17,13 @@ const Header = () => {
     dispatch({ type: "Exit" });
   };
 
-  useEffect(() => {
-    dispatch(getUser());
-  }, []);
-
   return (
     <header>
-      <Basket token={token} />
+      <Basket token={user.token} />
 
       <div className={`${styles.headerNav} d-flex justify-between`}>
         <div>Welcome to our online shop</div>
-        {!token && <Link to="/login">Login or Sing up</Link>}
+        {!user.token && <Link to="/login">Login or Sing up</Link>}
       </div>
 
       <div className={`${styles.headerBottom} d-flex justify-between`}>
@@ -44,12 +38,12 @@ const Header = () => {
 
         <div className="d-flex align-center">
           <div className="mr-10">Login:</div>
-          <div className={styles.login}>{login}</div>
+          <div className={styles.login}>{user.login}</div>
           <button className="ml-20">
             <img src={avatar} alt="" />
           </button>
 
-          {token && (
+          {user.token && (
             <button
               onClick={handleExit}
               className={`${styles.exit} clear ml-10`}
