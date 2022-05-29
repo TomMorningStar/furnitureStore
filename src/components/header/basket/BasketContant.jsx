@@ -4,7 +4,7 @@ import BasketTotalPrice from "./BasketTotalPrice";
 import BasketItem from "./BasketItem";
 import styles from "./Basket.module.scss";
 
-const BasketContant = () => {
+const BasketContant = ({ basket }) => {
   const [selectedBasket, setSelectedBasket] = React.useState(true);
   const [selectedLike, setSelectedLike] = React.useState(false);
 
@@ -53,9 +53,15 @@ const BasketContant = () => {
 
       <BasketNav />
 
-      <BasketItem />
-      <BasketItem />
-      <BasketItem />
+      <div
+        className={basket.items.length >= 4 ? styles.basketContantWrapper : ""}
+      >
+        {basket.items.map((product) => {
+          return (
+            <BasketItem basket={basket} key={product._id} product={product} />
+          );
+        })}
+      </div>
 
       {selectedBasket && (
         <>

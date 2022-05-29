@@ -4,8 +4,10 @@ import thunk from "redux-thunk";
 import armchairs from "./features/armchairs";
 import sofas from "./features/sofas";
 import user from "./features/user";
+import basket from "./features/basket";
 
 const combineRouter = combineReducers({
+  basket,
   user,
   armchairs,
   sofas,
