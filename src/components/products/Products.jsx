@@ -5,8 +5,9 @@ import { getSofas } from "../../redux/features/sofas";
 import Armchairs from "./Armchairs";
 import { getUser } from "../../redux/features/user";
 import { getBasket } from "../../redux/features/basket";
+import { getLiked } from "../../redux/features/liked";
 
-const Products = () => {
+const Products = ({ filteredItems }) => {
   const dispatch = useDispatch();
 
   const { armchairs, sofas, token } = useSelector((state) => ({
@@ -20,11 +21,12 @@ const Products = () => {
     dispatch(getSofas());
     dispatch(getUser());
     dispatch(getBasket());
+    dispatch(getLiked());
   }, [dispatch]);
 
   return (
-    <div className="productsWrapper d-flex justify-between">
-      {armchairs.map((product) => {
+    <div className="productsWrapper d-flex">
+      {filteredItems.map((product) => {
         return <Armchairs token={token} key={product._id} product={product} />;
       })}
     </div>

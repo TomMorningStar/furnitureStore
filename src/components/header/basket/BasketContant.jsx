@@ -3,8 +3,9 @@ import BasketNav from "./BasketNav";
 import BasketTotalPrice from "./BasketTotalPrice";
 import BasketItem from "./BasketItem";
 import styles from "./Basket.module.scss";
+import LikedItem from "./LikedItem";
 
-const BasketContant = ({ basket }) => {
+const BasketContant = ({ setActive, liked, basket }) => {
   const [selectedBasket, setSelectedBasket] = React.useState(true);
   const [selectedLike, setSelectedLike] = React.useState(false);
 
@@ -29,8 +30,10 @@ const BasketContant = ({ basket }) => {
             className={selectedBasket ? styles.active : ""}
             onClick={handleSelectedBasket}
           >
-            ready to order{" "}
-            <span className={selectedBasket ? styles.active : ""}>(1)</span>
+            ready to order
+            <span className={selectedBasket ? styles.active : ""}>
+              ({basket.items.length})
+            </span>
           </button>
           {selectedBasket && <hr />}
         </div>
@@ -41,7 +44,9 @@ const BasketContant = ({ basket }) => {
             onClick={handleSelectedLike}
           >
             Liked
-            <span className={selectedLike ? styles.active : ""}>(1)</span>
+            <span className={selectedLike ? styles.active : ""}>
+              ({liked.items.length})
+            </span>
           </button>
           {selectedLike && <hr />}
         </div>
@@ -53,19 +58,37 @@ const BasketContant = ({ basket }) => {
 
       <BasketNav />
 
-      <div
-        className={basket.items.length >= 4 ? styles.basketContantWrapper : ""}
-      >
-        {basket.items.map((product) => {
-          return (
-            <BasketItem basket={basket} key={product._id} product={product} />
-          );
-        })}
-      </div>
+      {selectedBasket ? (
+        <div
+          className={
+            basket.items.length >= 4 ? styles.basketContantWrapper : ""
+          }
+        >
+          {basket.items.map((product) => {
+            return (
+              <BasketItem basket={basket} key={product._id} product={product} />
+            );
+          })}
+        </div>
+      ) : (
+        liked && (
+          <div
+            className={
+              liked.items.length >= 4 ? styles.basketContantWrapper : ""
+            }
+          >
+            {liked.items.map((product) => {
+              return (
+                <LikedItem liked={liked} key={product._id} product={product} />
+              );
+            })}
+          </div>
+        )
+      )}
 
       {selectedBasket && (
         <>
-          <BasketTotalPrice />
+          <BasketTotalPrice setActive={setActive} basket={basket} />
           <div className={`${styles.totalInfo} d-flex`}>
             <button>go to cart</button>
           </div>

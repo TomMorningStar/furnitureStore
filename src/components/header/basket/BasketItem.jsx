@@ -1,6 +1,10 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { pullArmchairToBasket } from "../../../redux/features/basket";
+import {
+  decrementAmount,
+  incrementAmount,
+  pullArmchairToBasket,
+} from "../../../redux/features/basket";
 import styles from "./Basket.module.scss";
 
 const BasketItem = ({ basket, product }) => {
@@ -8,6 +12,14 @@ const BasketItem = ({ basket, product }) => {
 
   const handlePullBasketProduct = () => {
     dispatch(pullArmchairToBasket(basket.basketId, product._id));
+  };
+
+  const handleIncrementAmount = () => {
+    dispatch(incrementAmount(product._id));
+  };
+
+  const handleDecrementAmount = () => {
+    dispatch(decrementAmount(product._id));
   };
 
   return (
@@ -20,12 +32,23 @@ const BasketItem = ({ basket, product }) => {
         <li className={styles.priceInfo}>{product.price} ₽</li>
         <li className={styles.amountInfo}>
           <div className={styles.amountBorder}>
-            <button className={styles.increment}>-</button>
-            <div className={styles.counter}>0</div>
-            <button className={styles.decrement}>+</button>
+            <button
+              onClick={handleDecrementAmount}
+              className={styles.increment}
+              disabled={product.amount === 1}
+            >
+              -
+            </button>
+            <div className={styles.counter}>{product.amount}</div>
+            <button
+              onClick={handleIncrementAmount}
+              className={styles.decrement}
+            >
+              +
+            </button>
           </div>
         </li>
-        <li className={styles.sumInfo}>{product.price} ₽</li>
+        <li className={styles.sumInfo}>{product.price * product.amount} ₽</li>
         <li></li>
       </ul>
 
