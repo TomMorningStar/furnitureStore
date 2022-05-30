@@ -5,8 +5,10 @@ import armchairs from "./features/armchairs";
 import sofas from "./features/sofas";
 import user from "./features/user";
 import basket from "./features/basket";
+import liked from "./features/liked";
 
 const combineRouter = combineReducers({
+  liked,
   basket,
   user,
   armchairs,

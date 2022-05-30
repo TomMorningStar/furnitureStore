@@ -5,23 +5,28 @@ import like from "../../../images/like.png";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-const BasketIcons = ({ active, setActive }) => {
+const BasketIcons = ({ likedItems, basketItems, active, setActive }) => {
   const token = useSelector((state) => state.user.token);
 
   const handleGetBasket = () => {
     if (token) {
       setActive(!active);
+    } else {
+      alert("Register first or login");
     }
   };
 
   return (
-    <div>
+    <div className={styles.iconsWrapper}>
       {token && (
         <>
           <div onClick={handleGetBasket} className={styles.icons}>
+            <div className={styles.basketAmountItems}>{basketItems.length}</div>
+
             <img width={25} src={basket} alt="Иконка корзины" />
           </div>
           <div onClick={handleGetBasket} className={styles.icons}>
+            <div className={styles.basketAmountItems}>{likedItems.length}</div>
             <img width={25} src={like} alt="Иконка лайка" />
           </div>
         </>

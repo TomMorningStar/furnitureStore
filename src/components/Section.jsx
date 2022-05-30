@@ -1,32 +1,37 @@
-import React, { useState } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
 import Products from "./products/Products";
 
 const Section = () => {
-  const nav = ["All products", "Armchairs", "Sofas", "Tables"];
+  const [value, setValue] = React.useState("");
 
-  const [select, setSelect] = useState(0);
+  const armchairs = useSelector((state) => state.armchairs.armchairs);
+
+  const handleGetValue = (e) => {
+    setValue(e.target.value);
+  };
+
+  const filteredItems = armchairs.filter((item) => {
+    return item.name.toLowerCase().includes(value.toLowerCase());
+  });
 
   return (
     <section>
-      <h1>PRODUCTS</h1>
+      <div className="search d-flex align-center">
+        <div>
+          <h1>Armchairs</h1>
+        </div>
+        <div>
+          <input
+            onChange={handleGetValue}
+            value={value}
+            placeholder="search..."
+            type="text"
+          />
+        </div>
+      </div>
 
-      <nav>
-        <ul className="clear d-flex justify-between">
-          {nav.map((product, index) => {
-            return (
-              <li
-                key={product}
-                onClick={() => setSelect(index)}
-                className={select === index ? "selected" : ""}
-              >
-                {product}
-              </li>
-            );
-          })}
-        </ul>
-      </nav>
-
-      <Products />
+      <Products filteredItems={filteredItems} />
     </section>
   );
 };

@@ -1,20 +1,22 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styles from "./Basket.module.scss";
 import BasketIcons from "./BasketIcons";
 import BasketContant from "./BasketContant";
-import { useDispatch, useSelector } from "react-redux";
-import { getBasket } from "../../../redux/features/basket";
+import { useSelector } from "react-redux";
 
 const Basket = ({ token }) => {
   const [active, setActive] = React.useState(false);
 
-  //   const dispatch = useDispatch();
+  const { basket, liked } = useSelector((state) => ({
+    basket: state.basket,
+    liked: state.liked,
+  }));
 
-  const basket = useSelector((state) => state.basket);
-
-  //   useEffect(() => {
-  //     dispatch(getBasket());
-  //   }, []);
+  if (!token) {
+    setTimeout(() => {
+      setActive(false);
+    }, 500);
+  }
 
   return (
     <div
@@ -25,8 +27,14 @@ const Basket = ({ token }) => {
       }
       className={`${styles.basketWrapper} d-flex`}
     >
-      <BasketIcons token={token} active={active} setActive={setActive} />
-      <BasketContant basket={basket} />
+      <BasketIcons
+        likedItems={liked.items}
+        basketItems={basket.items}
+        token={token}
+        active={active}
+        setActive={setActive}
+      />
+      <BasketContant setActive={setActive} liked={liked} basket={basket} />
     </div>
   );
 };

@@ -87,6 +87,28 @@ aside {
 }
 
 section {
+  .search {
+    margin-left: 200px;
+    padding: 0 135px;
+
+    h1 {
+      font-size: 34px;
+    }
+
+    input {
+      font-size: 14px;
+      padding: 10px 20px;
+      margin-left: 100px;
+      outline: none;
+      border: 1px solid #515151;
+      border-radius: 5px;
+      width: 400px;
+      &:active {
+        border: 1px solid #74a857;
+      }
+    }
+  }
+
   nav {
     margin-bottom: 50px;
     ul {
@@ -115,7 +137,7 @@ section {
   width: 265px;
   padding: 0 10px 20px 10px;
   cursor: pointer;
-  margin-bottom: 20px;
+  margin: 0 13.5px 20px;
 
   .productImg {
     height: 287px;
@@ -129,21 +151,21 @@ section {
       width: 39px;
       height: 39px;
       text-align: center;
-      line-height: 48px;
+      line-height: 47px;
       border-radius: 39px;
       border: 3px solid rgb(210, 210, 210);
       opacity: 0;
-      transition: 0.2s;
+      transition: 0.1s;
     }
   }
 
   &:hover .basketLogo {
     opacity: 1;
-    transition: 0.2s;
+    transition: 0.3s;
   }
   &:hover .likeProduct {
     opacity: 1;
-    transition: 0.2s;
+    transition: 0.3s;
   }
 
   .type {
@@ -181,15 +203,27 @@ section {
 
     .selectedLike {
       fill: #fff;
-      border: 2px solid #7ac751;
-      background-color: #7ac751;
+      border: 3px solid #de5a58;
+      background: rgb(199, 71, 69);
+      background: linear-gradient(
+        0deg,
+        rgba(199, 71, 69, 1) 0%,
+        rgba(241, 60, 57, 1) 50%,
+        rgba(194, 76, 74, 1) 100%
+      );
       opacity: 1;
     }
 
     .selectedProduct {
       fill: #fff;
-      border: 2px solid #7ac751;
-      background-color: #7ac751;
+      border: 3px solid #74a857;
+      background: rgb(123, 186, 89);
+      background: linear-gradient(
+        0deg,
+        rgba(123, 186, 89, 1) 0%,
+        rgba(122, 199, 81, 1) 50%,
+        rgba(113, 177, 78, 1) 100%
+      );
       opacity: 1;
     }
   }
@@ -210,6 +244,7 @@ section {
 article {
   padding: 0 200px;
   position: relative;
+  height: 370px;
 
   img {
     border-radius: 100%;

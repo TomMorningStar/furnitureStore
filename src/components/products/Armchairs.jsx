@@ -9,7 +9,7 @@ const Armchairs = ({ token, product }) => {
         className="productImg"
         style={{ backgroundImage: `url(${product.img})` }}
       >
-        <LikeIcon token={token} />
+        <LikeIcon product={product} token={token} />
         <BasketIcon token={token} product={product} />
       </div>
 

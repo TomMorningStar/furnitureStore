@@ -15,7 +15,7 @@ const basket = (state = inintialState, action) => {
         ...state,
         loadUser: false,
         items: action.payload.basket,
-        basketInfo: action.payload.basketInfo,
+        //   basketInfo: action.payload.basketInfo,
         basketId: action.payload.basketId,
       };
     case "get/basket/rejected":
@@ -65,7 +65,60 @@ const basket = (state = inintialState, action) => {
         loadUser: false,
         error: action.error,
       };
-
+    // --------------------------------
+    case "basket/armchair/increment/pending":
+      return {
+        ...state,
+        loadUser: true,
+        error: null,
+      };
+    case "basket/armchair/increment/fulfilled":
+      return {
+        ...state,
+        loadUser: false,
+        items: [
+          ...state.items.map((item) => {
+            if (item._id === action.payload._id) {
+              item.amount += 1;
+            }
+            return item;
+          }),
+        ],
+      };
+    case "basket/armchair/increment/rejected":
+      return {
+        ...state,
+        loadUser: false,
+        error: action.error,
+      };
+    // --------------------------------
+    // --------------------------------
+    case "basket/armchair/decrement/pending":
+      return {
+        ...state,
+        loadUser: true,
+        error: null,
+      };
+    case "basket/armchair/decrement/fulfilled":
+      return {
+        ...state,
+        loadUser: false,
+        items: [
+          ...state.items.map((item) => {
+            if (item._id === action.payload._id) {
+              item.amount -= 1;
+            }
+            return item;
+          }),
+        ],
+      };
+    case "basket/armchair/decrement/rejected":
+      return {
+        ...state,
+        loadUser: false,
+        error: action.error,
+      };
+    // --------------------------------
     default:
       return {
         ...state,
@@ -91,7 +144,7 @@ export const getBasket = () => {
       const basket = await res.json();
 
       const result = await {
-        basketInfo: basket,
+        //   basketInfo: basket,
         basket: basket.basket,
         basketId: basket._id,
       };
@@ -157,6 +210,69 @@ export const pullArmchairToBasket = (idBasket, idProduct) => {
     } catch (error) {
       dispatch({
         type: "pull/basket/armchair/rejected",
+        error: error.toString(),
+      });
+    }
+  };
+};
+
+export const incrementAmount = (idProduct) => {
+  return async (dispatch, getState) => {
+    const state = getState();
+    const token = state.user.token;
+
+    dispatch({ type: "basket/armchair/increment/pending" });
+    try {
+      const res = await fetch(
+        `http://localhost:4000/basket/armchair/increment/${idProduct}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const result = await res.json();
+
+      dispatch({
+        type: "basket/armchair/increment/fulfilled",
+        payload: result,
+      });
+    } catch (error) {
+      dispatch({
+        type: "basket/armchair/increment/rejected",
+        error: error.toString(),
+      });
+    }
+  };
+};
+export const decrementAmount = (idProduct) => {
+  return async (dispatch, getState) => {
+    const state = getState();
+    const token = state.user.token;
+
+    dispatch({ type: "basket/armchair/decrement/pending" });
+    try {
+      const res = await fetch(
+        `http://localhost:4000/basket/armchair/decrement/${idProduct}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const result = await res.json();
+
+      dispatch({
+        type: "basket/armchair/decrement/fulfilled",
+        payload: result,
+      });
+    } catch (error) {
+      dispatch({
+        type: "basket/armchair/decrement/rejected",
         error: error.toString(),
       });
     }

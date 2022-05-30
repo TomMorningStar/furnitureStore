@@ -7,6 +7,10 @@
     margin: 0;
   }
 
+  .iconsWrapper {
+    height: 10px;
+  }
+
   .icons {
     width: 70px;
     height: 70px;
@@ -27,6 +31,21 @@
     &:hover {
       background-color: #326f11;
       transition: 0.5s;
+    }
+
+    position: relative;
+
+    .basketAmountItems {
+      position: absolute;
+      top: 19px;
+      right: 9px;
+      font-size: 16px;
+      background-color: rgb(214, 213, 213);
+      text-align: center;
+      height: 20px;
+      width: 20px;
+      line-height: 20px;
+      border-radius: 20px;
     }
   }
   .icons a {
@@ -151,7 +170,6 @@
     text-align: center;
   }
   .totalInfo {
-    justify-content: right;
     padding: 20px 75px;
 
     b {

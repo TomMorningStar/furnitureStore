@@ -10,17 +10,8 @@ const SignIn = ({ token }) => {
   const [login, setLogin] = React.useState("");
   const [password, setPassword] = React.useState("");
 
-  const [validation, setValifation] = React.useState("");
-
   const handleLogin = () => {
     dispatch(loginUser(login, password));
-
-    if (!token) {
-      setValifation("Неправильный логин или пароль");
-      if (token) {
-        setValifation("");
-      }
-    }
 
     setLogin("");
     setPassword("");
@@ -28,6 +19,11 @@ const SignIn = ({ token }) => {
 
   return (
     <div className={styles.form}>
+      <div className={styles.loginPassword}>
+        <div>login: Tamerlan6</div>
+        <div>password: Tamerlan6</div>
+      </div>
+
       <div className={styles.fromWrap}>
         <div className={styles.formTitle}>
           <h1>Sign In</h1>
@@ -52,7 +48,7 @@ const SignIn = ({ token }) => {
                 type="password"
               />
 
-              <div className={`${styles.validation} `}>{validation}</div>
+              <div className={styles.validation}> </div>
             </div>
           </div>
 
